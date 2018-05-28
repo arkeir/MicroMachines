@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Car : MonoBehaviour
+public class Player2 : MonoBehaviour
 {
     public float moveSpeed;
     public float maxSpeed;
@@ -45,7 +45,7 @@ public class Car : MonoBehaviour
 
         Movement();
     }
-    
+
 
     void OnTriggerEnter(Collider hit)
     {
@@ -56,7 +56,7 @@ public class Car : MonoBehaviour
             Debug.Log("Checkpoint is " + lastCheckpoint);
         }
     }
-    
+
 
     void OnCollisionEnter(Collision hit)
     {
@@ -73,15 +73,15 @@ public class Car : MonoBehaviour
 
     void Movement()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
-            Debug.Log("W is pressed");
+            Debug.Log("UpArrow is pressed");
             rb.AddForce(transform.forward * moveSpeed);
         }
 
-        if (Input.GetKey(KeyCode.S) && !rb.IsSleeping())
+        if (Input.GetKey(KeyCode.DownArrow) && !rb.IsSleeping())
         {
-            Debug.Log("S is pressed");
+            Debug.Log("DownArrow is pressed");
             rb.AddForce(-transform.forward * reverseSpeed);
         }
 
@@ -91,5 +91,5 @@ public class Car : MonoBehaviour
 
         transform.Rotate(0, Rotation, 0);
     }
-    
+
 }
