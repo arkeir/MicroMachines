@@ -33,7 +33,8 @@ public class RaceClock : MonoBehaviour
 
     public Canvas GameCanvas;
     public Canvas endGameCanvas;
-    
+    public Canvas PauseMenuCanvas;
+
 
     private bool finish_P1 = false;
     private bool finish_P2 = false;
@@ -48,6 +49,35 @@ public class RaceClock : MonoBehaviour
         seconds = (int) (Time.timeSinceLevelLoad % 60f);
         milliSeconds = (int) (Time.timeSinceLevelLoad % 1*60);
         raceClock.GetComponent<Text>().text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliSeconds.ToString("00");
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Pause();
+        }
+    }
+
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        GameCanvas.gameObject.SetActive(true);
+        PauseMenuCanvas.gameObject.SetActive(false);
+    }
+
+
+    void Pause()
+    {
+        if (GameCanvas.gameObject.activeInHierarchy)
+        {
+            Time.timeScale = 0;
+            GameCanvas.gameObject.SetActive(false);
+            PauseMenuCanvas.gameObject.SetActive(true);
+        }
+
+        else
+        {
+            Resume();
+        }
     }
 
 

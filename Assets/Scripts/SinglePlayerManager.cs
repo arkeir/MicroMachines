@@ -19,6 +19,7 @@ public class SinglePlayerManager : MonoBehaviour {
 
     public Canvas GameCanvas;
     public Canvas endGameCanvas;
+    public Canvas PauseMenuCanvas;
     
 	
 	void Update () {
@@ -29,6 +30,11 @@ public class SinglePlayerManager : MonoBehaviour {
 	    raceClock.GetComponent<Text>().text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliSeconds.ToString("00");
 
         LapTime();
+
+	    if (Input.GetKeyDown(KeyCode.P))
+	    {
+	        Pause();
+	    }
     }
 
 
@@ -39,6 +45,30 @@ public class SinglePlayerManager : MonoBehaviour {
         GameCanvas.gameObject.SetActive(false);
 
         finishTime.GetComponent<Text>().text = "Your time is: " + minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliSeconds.ToString("00");
+    }
+
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        GameCanvas.gameObject.SetActive(true);
+        PauseMenuCanvas.gameObject.SetActive(false);
+    }
+
+
+    void Pause()
+    {
+        if (GameCanvas.gameObject.activeInHierarchy)
+        {
+            Time.timeScale = 0;
+            GameCanvas.gameObject.SetActive(false);
+            PauseMenuCanvas.gameObject.SetActive(true);
+        }
+
+        else
+        {
+            Resume();
+        }
     }
 
 
